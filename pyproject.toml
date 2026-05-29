@@ -1,0 +1,64 @@
+[project]
+name = "pytest-clickhouse-mock"
+version = "1.1.0"
+description = "Pytest fixtures that mock clickhouse-driver Client for unit tests."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Aleksey Dalekin", email = "adalekin@gmail.com" }]
+requires-python = ">=3.10"
+keywords = ["pytest", "clickhouse", "clickhouse-driver", "mock", "testing"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Testing",
+    "Typing :: Typed",
+]
+dependencies = [
+    "clickhouse-driver>=0.2.0",
+    "pytest>=8.0",
+]
+
+[project.entry-points.pytest11]
+clickhouse_mock = "pytest_clickhouse_mock.plugin"
+
+[project.urls]
+Homepage = "https://github.com/adalekin/pytest-clickhouse-mock"
+Repository = "https://github.com/adalekin/pytest-clickhouse-mock"
+Issues = "https://github.com/adalekin/pytest-clickhouse-mock/issues"
+Changelog = "https://github.com/adalekin/pytest-clickhouse-mock/releases"
+
+[build-system]
+requires = ["hatchling>=1.24.0"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+default-groups = ["dev"]
+
+[dependency-groups]
+dev = [
+    "mypy>=1.10.0",
+    "pytest>=8.2.2",
+    "ruff>=0.4.7",
+]
+
+[tool.hatch.build.targets.sdist]
+include = ["/pytest_clickhouse_mock", "/README.md", "/LICENSE"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["pytest_clickhouse_mock"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true

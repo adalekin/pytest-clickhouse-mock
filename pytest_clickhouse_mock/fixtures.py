@@ -1,16 +1,17 @@
-import mock
+from collections.abc import Iterator
+from unittest import mock
 
 import pytest
 
 
 @pytest.fixture(scope="session", autouse=True)
-def fx_patch_clickhouse_client():
+def fx_patch_clickhouse_client() -> Iterator[mock.MagicMock]:
     with mock.patch("clickhouse_driver.Client") as mock_client:
         yield mock_client
 
 
 @pytest.fixture(scope="function")
-def fx_clickhouse_client(fx_patch_clickhouse_client):
+def fx_clickhouse_client(fx_patch_clickhouse_client: mock.MagicMock) -> Iterator[mock.MagicMock]:
     mock_client = fx_patch_clickhouse_client.return_value
     mock_client.connection.connected = True
 
